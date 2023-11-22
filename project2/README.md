@@ -2,20 +2,20 @@
 
 ## Description
 
-This script will provide information about the hard drive you choose that is connected to your computer.
+This script will provide information about the hard drive of your choice connected to the host.
 
 ## Getting Started
-Before you start, make sure you run this command in Powershell or in another IDE that supports PowerShell scripts (.ps1). No additional software is needed.
+Before you start, make sure you run the script in an IDE that supports PowerShell scripts (.ps1). No additional software is required.
 
 ## Installation
 
-An IDE that supports .ps1 files will need to eb downloaded. Once the script is downloaded onto the computer, run it in the IDe of your choice. I prefer PowerShell ISE.
+An IDE that supports .ps1 files will need to be downloaded. Once the script is downloaded, run it with the IDE of your choice. I prefer PowerShell ISE.
 
 ## Usage
 
-Run the script and you will be prompted with input on the drive you want the script to get information from. Make sure you include a letter that represents the hard drive followed by a colon. An example of this is C:
+Run the script and you will be prompted to enter the hard drive you want the script to get information from. Make sure you include a letter that represents the hard drive, followed by a colon.
 
-Afterwards, the script will list information about the selected hard drive. Run the script again if you want to check anoher connected hard drive. 
+Afterwards, the script will list information about the selected hard drive. Run the script again if you want to look at another hard drive.  
 
 Enjoy!!
 
