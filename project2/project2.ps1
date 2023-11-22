@@ -67,7 +67,7 @@ Start-Sleep -Seconds 2
 
 Write-Host ""
 
-Write-Host "That is roughly $used_percentage% used and $available_percent% left."
+Write-Host "$used_percentage% has been used and $available_percent% remains."
 
 Start-Sleep -Seconds 3
 
