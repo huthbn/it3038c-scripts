@@ -23,7 +23,7 @@ Write-Host ""
 
 $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
 
-# Check to make sure the user entered a colon with the error handling and display error message of conditions are met.
+# Check to make sure the user entered a colon with the error handling and display error message if conditions are met.
 
 #Proceed to the next prompt if the colon is used
 
@@ -53,13 +53,11 @@ Start-Sleep -Seconds 3
 
 # Check how the information should be displayed in either GB or MB based on the storage capacity/availability of the selected drive.
 
-# If the capacity/availability of storage is less than 1GB, display the data in MB.
+# If the capacity/availability of storage is less than 1GB, calculate and display the data in MB.
 
-#Calculate the percentage used of the disk
+$usedStorageInMB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1MB)
 
-$used_storage = [math]::Round(($disk.Size - $disk.FreeSpace) / 1MB)
-
-$used_percentage = [math]::Round(($used_storage / $total_storage)* 100)
+$usedPercentageInMB = [math]::Round(($usedStorageMB / $total_storage)* 100)
 
 Write-Host ""
 
@@ -67,33 +65,17 @@ Write-Host "The $driveletter drive has about $totalStorageInMB MB of total stora
 
 Write-Host ""
 
-Write-Output "The $driveletter drive has $used_percentage% used storage and $available_percent% available."
+# If the capacity is more than 1GB, then calculate and display information in GB
 
-# Display a different message determine dby the amoutn of storage
+$usedStorageInGB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1GB)
 
-# If the storage is above 50%, say "You have plenty of space left!"
-
-# If the storage is between 25%-50%, say "You still have some space left" and show the top three files that are taking up the most space. 
-
-# If the storage is less than 25%, say "You are running low on space!" and display the top files with the most storage.
-
-# If storage capacity/availability is greater than 1GB, display the information in GB.
+$usedPercentageInGB = [math]::Round(($usedStorageInGB / $total_storage)* 100)
 
 Write-Host ""
 
 Write-Host "The $driveletter drive has about $totalStorageInGB GB of total storage."
 
-#Delay the time before the next result
-
-Start-Sleep -Seconds 3
-
-#Display the contents of the selected drive
-
-Write-Host ""
-
-Write-Host "The $driveletter drive has about $availableStorageInGB GB left."
-
-#Calculate the percentage used of the disk
+# Display message based on the amout of data capacity or availability.
 
 $used_storage = [math]::Round(($disk.Size - $disk.FreeSpace) / 1GB)
 
@@ -103,13 +85,19 @@ $used_percentage = [math]::Round(($used_storage / $total_storage)* 100)
 
 $available_percent = 100 - $used_percentage
 
-#Shows the percentage of used and available storage
+#Shows the percentage of used and available storage.
 
 Start-Sleep -Seconds 2
 
 Write-Host ""
 
 Write-Host "$used_percentage% has been used and $available_percent% remains."
+
+# If the storage is above 50%, say "You have plenty of space left!"
+
+# If the storage is between 25%-50%, say "You still have some space left" and show the top three files that are taking up the most space. 
+
+# If the storage is less than 25%, say "You are running low on space!" and display the top files with the most storage.
 
 Start-Sleep -Seconds 3
 
