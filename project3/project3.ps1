@@ -21,25 +21,19 @@ Write-Host ""
 
 #Declare read-host variable for the user to select input
 
+do {
 $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
 
 # Check to make sure the user entered a colon with the error handling and display error message if conditions are met.
-
+if ($driveletter -notlike '*:*') {
+    Write-Host "Error: Please include a colon at the end of the drive letter."
+    }
+} while ($driveletter -notlike '*:*')
 #Proceed to the next prompt if the colon is used
 
 #Display all storage information based on selected drive
 
 $disk = Get-WmiObject -Class Win32_LogicalDisk -Filter "DeviceID='$driveletter'"
-
-# Declare total storage variables in GB or MB
-
-$totalStorageInGB =  [math]::Round($disk.Size /1GB)
-$totalStorageInMB = [math]::Round($disk.Size /1MB)   
-
-#Declare available storage variables in GB or MB
-
-$availableStorageInGB = [math]::Round($($disk.FreeSpace / 1GB))
-$availableStorageInMB = [math]::Round($($disk.FreeSpace / 1MB))
 
 #Display information about the selected hard drive
 
@@ -51,47 +45,53 @@ Write-Host "Here is some information about the ${driveletter} drive:"
 
 Start-Sleep -Seconds 3
 
-# Check how the information should be displayed in either GB or MB based on the storage capacity/availability of the selected drive.
-
 # If the capacity/availability of storage is less than 1GB, calculate and display the data in MB.
 
-$usedStorageInMB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1MB)
+$totalStorageMB = [math]::Round($disk.Size / 1MB)   
 
-$usedPercentageInMB = [math]::Round(($usedStorageMB / $total_storage)* 100)
+$availableStorageMB = [math]::Round($($disk.FreeSpace / 1MB))
+
+Write-Host ""
+
+Write-Host "The $driveletter drive has about $totalStorageMB MB of total storage. There are $availableStorageMB MB left."
 
 Write-Host ""
 
-Write-Host "The $driveletter drive has about $totalStorageInMB MB of total storage."
+# Display storage size, how much is available, and the total amount of storage used.
 
-Write-Host ""
+$usedStorageMB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1MB)
+
+$usedPercentageMB = [math]::Round(($usedStorageMB / $totalStorageMB)* 100)
+
+Write-Output " The $driveletter has about $usedStorageMB MB of storage left. This means that it is at $usedPercentageMB% capacity."
+
+$availablePercentageMB = 100 - $usedPercentageMB
+
+Write-Host "$usedPercentageMB% has been used and $availablePercentageMB% remains."
 
 # If the capacity is more than 1GB, then calculate and display information in GB
 
-$usedStorageInGB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1GB)
+$totalStorageGB =  [math]::Round($disk.Size /1GB)
 
-$usedPercentageInGB = [math]::Round(($usedStorageInGB / $total_storage)* 100)
-
-Write-Host ""
-
-Write-Host "The $driveletter drive has about $totalStorageInGB GB of total storage."
-
-# Display message based on the amout of data capacity or availability.
-
-$used_storage = [math]::Round(($disk.Size - $disk.FreeSpace) / 1GB)
-
-$used_percentage = [math]::Round(($used_storage / $total_storage)* 100)
-
-#Calculate the available storage
-
-$available_percent = 100 - $used_percentage
-
-#Shows the percentage of used and available storage.
-
-Start-Sleep -Seconds 2
+$availableStorageGB = [math]::Round($($disk.FreeSpace / 1GB))
 
 Write-Host ""
 
-Write-Host "$used_percentage% has been used and $available_percent% remains."
+Write-Host "The $driveletter drive has about $totalStorageGB GB of total storage. There are $availableStorageGB GB left."
+
+Write-Host ""
+
+# Display storage size, how much is available, and the total amount of storage used.
+
+$usedStorageGB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1GB)
+
+$usedPercentageGB = [math]::Round(($usedStorageGB / $totalStorageGB)* 100)
+
+Write-Output " The $driveletter has about $usedStorageGB GB of storage left. This means that it is at $usedPercentageGB% capacity."
+
+$availablePercentageGB = 100 - $usedPercentageGB
+
+Write-Host "$usedPercentageGB% has been used and $availablePercentageGB% remains."
 
 # If the storage is above 50%, say "You have plenty of space left!"
 
