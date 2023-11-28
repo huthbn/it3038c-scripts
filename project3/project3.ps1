@@ -57,9 +57,6 @@ Start-Sleep -Seconds 3
 
 if ($disk.Size -lt 1GB -or $disk.FreeSpace -lt 1GB) {
 
-
-
-
 $totalStorageMB = [math]::Round($disk.Size / 1MB)   
 
 $availableStorageMB = [math]::Round($($disk.FreeSpace / 1MB))
@@ -81,6 +78,36 @@ Start-Sleep -Seconds 3
 Write-Host ""
 
 Write-Output " The $driveletter has about $usedStorageMB MB of storage used. This means that it is at $usedPercentageMB% capacity with $availablePercentageMB% remaining."
+
+# Display message based on available storage
+
+if ($availableStorageMB -gt 50) {
+
+Write-Output "You hae plenty of storage left!"
+
+}
+
+elseif (($availableStorageMB -gt 25) -and ($availableStorageMB -lt 50)) {
+
+Write-Output "You still have some space left."
+
+Start-Sleep -Seconds 2
+
+# Calculate and display the biggest file in the selected drive
+
+
+
+}
+
+else {
+
+Write-Output "You are running low on storage in the $driveletter drive."
+
+# Calculate and display the three biggest files in the selected drive.
+
+
+
+}
 
 }
 
@@ -112,12 +139,33 @@ Write-Host "$usedPercentageGB% has been used and $availablePercentageGB% remains
 
 # If the storage is above 50%, say "You have plenty of space left!"
 
+if ( $availablePercentageGB -gt 50 ) {
+
+Write-Output "You have plenty of storage left."
+
+}
+
 # If the storage is between 25%-50%, say "You still have some space left" and show the top three files that are taking up the most space. 
+
+elseif (($availablePercentageGB -gt 25) -and ($availablePercentageGB -le 50)) {
+
+Write-Output "You still have some space left."
+
+Start-Sleep -Seconds 2
+
+$largestFile = Get-ChildItem -Path $drivePath -File | Sort-Object Length -Descending | Select-Object -First 1
+
+}
 
 # If the storage is less than 25%, say "You are running low on space!" and display the top files with the most storage.
 
-Start-Sleep -Seconds 3
+else {
+Write-Output "You are running low on space. Here are the top three files in $driveltter drive that are taking up the most storage."
+
+}
 
 Write-Host ""
 
-Write-Host "Hope you've found the information valuable!"
+Start-Sleep -Seconds 3
+
+Write-Output "Hope you've found the information valuable!"
