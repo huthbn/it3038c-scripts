@@ -8,7 +8,7 @@ Write-Host ""
 
 #Add delay before second promt
 
-Start-Sleep -Seconds 1
+Start-Sleep -Seconds 3
 
 Write-Output "At the end, you will be given the opportunity to check another hard drive."
 
@@ -36,5 +36,15 @@ if ($driveletter -notlike '*:*') {
 $disk = Get-WmiObject -Class Win32_LogicalDisk -Filter "DeviceID='$driveletter'"
 
 Write-Output $disk
+
+
+if ($disk.Size -lt 1GB -or $disk.FreeSpace -lt 1GB) {
+    Write-Output "This is MB."
+
+}
+
+else {
+    Write-Output "This is in GB or higher."
+}
 
 

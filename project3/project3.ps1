@@ -45,7 +45,20 @@ Write-Host "Here is some information about the ${driveletter} drive:"
 
 Start-Sleep -Seconds 3
 
+#Display the volume name
+
+$volumeName = $disk.VolumeName
+
+Write-Output "The volume name is $volumeName."
+
+Start-Sleep -Seconds 3
+
 # If the capacity/availability of storage is less than 1GB, calculate and display the data in MB.
+
+if ($disk.Size -lt 1GB -or $disk.FreeSpace -lt 1GB) {
+
+
+
 
 $totalStorageMB = [math]::Round($disk.Size / 1MB)   
 
@@ -53,9 +66,7 @@ $availableStorageMB = [math]::Round($($disk.FreeSpace / 1MB))
 
 Write-Host ""
 
-Write-Host "The $driveletter drive has about $totalStorageMB MB of total storage. There are $availableStorageMB MB left."
-
-Write-Host ""
+Write-Host "The $driveletter drive has about $totalStorageMB MB of total storage with $availableStorageMB MB available."
 
 # Display storage size, how much is available, and the total amount of storage used.
 
@@ -63,13 +74,19 @@ $usedStorageMB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1MB)
 
 $usedPercentageMB = [math]::Round(($usedStorageMB / $totalStorageMB)* 100)
 
-Write-Output " The $driveletter has about $usedStorageMB MB of storage left. This means that it is at $usedPercentageMB% capacity."
-
 $availablePercentageMB = 100 - $usedPercentageMB
 
-Write-Host "$usedPercentageMB% has been used and $availablePercentageMB% remains."
+Start-Sleep -Seconds 3
+
+Write-Host ""
+
+Write-Output " The $driveletter has about $usedStorageMB MB of storage used. This means that it is at $usedPercentageMB% capacity with $availablePercentageMB% remaining."
+
+}
 
 # If the capacity is more than 1GB, then calculate and display information in GB
+
+else {
 
 $totalStorageGB =  [math]::Round($disk.Size /1GB)
 
@@ -91,7 +108,7 @@ Write-Output " The $driveletter has about $usedStorageGB GB of storage left. Thi
 
 $availablePercentageGB = 100 - $usedPercentageGB
 
-Write-Host "$usedPercentageGB% has been used and $availablePercentageGB% remains."
+Write-Host "$usedPercentageGB% has been used and $availablePercentageGB% remains." }
 
 # If the storage is above 50%, say "You have plenty of space left!"
 
