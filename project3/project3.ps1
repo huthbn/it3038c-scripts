@@ -28,7 +28,9 @@ $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to
 if ($driveletter -notlike '*:*') {
     Write-Host "Error: Please include a colon at the end of the drive letter."
     }
-} while ($driveletter -notlike '*:*')
+} 
+
+while ($driveletter -notlike '*:*')
 #Proceed to the next prompt if the colon is used
 
 #Display all storage information based on selected drive
