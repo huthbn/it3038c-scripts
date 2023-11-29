@@ -298,16 +298,20 @@ if ($largestFile) {
 
     if ($largestFile.Length -lt 1MB) {
 
-        Write-Output "$($largestFile.Length / 1KB) KB"
+        Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+
     }
     
-    elseif (($largestFile.Length -lt 1GB) -and ($largestFile.Length -gt 1KB)) {
+    elseif (($largestFile.Length -gt 1MB) -and ($largestFile.Length -lt 1GB)) {
 
-        Write-Output "Size: $($largestFile.Length / 1MB) MB"
+        Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
+
     }
 
     else {
-        Write-Output "Size: $($largestFile.Length / 1GB) GB"
+        
+        Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
+
     }
 } 
 
@@ -316,79 +320,7 @@ else {
     Write-Output "No files found on the $driveletter drive."
 }
 
-if($secondLargestFile) {
-
-Write-Output "Second Largest File:"
-
-Write-Host ""
-
-Start-Sleep -Seconds 2
-
-Write-Output "Name: $($SecondlargestFile.Name)"
-
-#Add error handling for displaying bytes, MBs, or greater
-
-if ($secondLargestFile.Length -lt 1MB) {
-
-    Write-Output "$($secondLargestFile.Length / 1KB) KB"
-}
-
-elseif ($secondLargestFile.Length -lt 1GB) {
-
-    Write-Output "Size: $($secondLargestFile.Length / 1MB) MB"
-}
-
-else {
-    Write-Output "Size: $($secondLargestFile.Length / 1GB) GB"
-}
-
 } 
-
-Write-Host ""
-
-else {
-
-Write-Output "No second file was found in the $driveletter drive."
-}
-
-if($thirdLargestFile) {
-
-    Write-Output "Third Largest File:"
-
-    Write-Host ""
-
-    Start-Sleep -Seconds 2
-
-    Write-Output "Name: $($thirdLargestFile.Name)"
-    
-    #Add error handling for displaying bytes, MBs, or greater
-    
-    if ($thirdLargestFile.Length -lt 1MB) {
-    
-        Write-Output "$($thirdLargestFile.Length / 1KB) KB"
-    }
-    
-    elseif ($thirdLargestFile.Length -lt 1GB) {
-    
-        Write-Output "Size: $($thirdLargestFile.Length / 1MB) MB"
-    }
-    
-    else {
-        Write-Output "Size: $($thirdLargestFile.Length / 1GB) GB"
-    }
-    
-    } 
-    
-    
-    else {
-
-        Write-Host ""
-
-    Write-Output "No third file was found in the $driveletter drive."
-
-    }
-
-}
 
 Write-Host ""
 
