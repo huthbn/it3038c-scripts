@@ -348,7 +348,6 @@ Write-Host ""
 
 else {
 
-
 Write-Output "No second file was found in the $driveletter drive."
 }
 
