@@ -1,12 +1,10 @@
-#Add space before first prompt
+# Display welcome message
 
 Write-Host ""
 
 Write-Output "This script will display information about your selected hard drive."
 
 Write-Host ""
-
-#Add delay before second promt
 
 Start-Sleep -Seconds 1
 
