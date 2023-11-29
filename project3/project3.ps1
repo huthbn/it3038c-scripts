@@ -12,26 +12,24 @@ Write-Output "At the end, you will be given the opportunity to check another har
 
 do {
 
-# Add delay before the next message and prompt
+# Add delay and space before the next prompt
 
 Start-Sleep -Seconds 3
 
-# Add space between prompts
 Write-Host ""
 
-#Declare read-host variable for the user to select input
+# Prompt user to enter hard drive letter 
 
 do {
 $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
 
-# Check to make sure the user entered a colon with the error handling and display error message if conditions are met.
+# Check to make sure user entered the drive letter in the correctn format. Throw error if not
 if ($driveletter -notlike '*:*') {
     Write-Host "Error: Please include a colon at the end of the drive letter."
     }
 } 
 
 while ($driveletter -notlike '*:*')
-#Proceed to the next prompt if the colon is used
 
 #Display all storage information based on selected drive
 
@@ -43,13 +41,11 @@ Write-Host ""
 
 Write-Host "Here is some information about the ${driveletter} drive:"
 
-#Add a delay before showing the first result
-
-Start-Sleep -Seconds 3
-
-#Display the volume name
+# Display volume name
 
 $volumeName = $disk.VolumeName
+
+Start-Sleep -Seconds 3
 
 Write-Output "The volume name is $volumeName."
 
@@ -67,6 +63,8 @@ Write-Host ""
 
 Write-Host "The $driveletter drive has about $totalStorageMB MB of total storage with $availableStorageMB MB available."
 
+Start-Sleep -Seconds 3
+
 # Display storage size, how much is available, and the total amount of storage used.
 
 $usedStorageMB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1MB)
@@ -75,11 +73,13 @@ $usedPercentageMB = [math]::Round(($usedStorageMB / $totalStorageMB)* 100)
 
 $availablePercentageMB = 100 - $usedPercentageMB
 
-Start-Sleep -Seconds 3
-
 Write-Host ""
 
-Write-Output " The $driveletter has about $usedStorageMB MB of storage used. This means that it is at $usedPercentageMB% capacity with $availablePercentageMB% remaining."
+Write-Output " The $driveletter has about $usedStorageMB MB of storage used."
+
+Start-Sleep -Seconds 3
+
+Write-Output "$driveletter is at $usedPercentageMB% capacity with $availablePercentageMB% remaining."
 
 # Display message based on available storage
 
@@ -244,11 +244,13 @@ $usedStorageGB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1GB)
 
 $usedPercentageGB = [math]::Round(($usedStorageGB / $totalStorageGB)* 100)
 
-Write-Output " The $driveletter has about $usedStorageGB GB of storage left. This means that it is at $usedPercentageGB% capacity."
+Write-Output " The $driveletter has about $usedStorageGB GB of storage left at $usedPercentageGB% capacity."
 
 $availablePercentageGB = 100 - $usedPercentageGB
 
-Write-Host "$usedPercentageGB% has been used and $availablePercentageGB% remains." }
+Write-Host "$driveletter is at $usedPercentageGB% capacity with $availablePercentageGB% remaining." 
+
+}
 
 # If the storage is above 50%, say "You have plenty of space left!"
 
