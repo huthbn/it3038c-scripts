@@ -3,7 +3,16 @@ do {
     
     # Check to make sure the user entered a colon with the error handling and display an error message if conditions are not met.
     if ($driveletter -notlike '*:*') {
+
+        Write-Host ""
+
+        Start-Sleep -Seconds 2
+
         Write-Host "Error: Please include a colon at the end of the drive letter."
+
+        Write-Host ""
+
+        Start-Sleep -Seconds 2
     }
 } 
 

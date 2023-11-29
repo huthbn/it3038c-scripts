@@ -21,11 +21,22 @@ Write-Host ""
 # Prompt user to enter hard drive letter 
 
 do {
+
 $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
 
 # Check to make sure user entered the drive letter in the correctn format. Throw error if not
 if ($driveletter -notlike '*:*') {
+
+    Start-Sleep -Seconds 1
+
+    Write-Host ""
+
     Write-Host "Error: Please include a colon at the end of the drive letter."
+
+    Write-Host ""
+
+    Start-Sleep -Seconds 2
+
     }
 } 
 
@@ -75,7 +86,7 @@ $availablePercentageMB = 100 - $usedPercentageMB
 
 Write-Host ""
 
-Write-Output " The $driveletter has about $usedStorageMB MB of storage used."
+Write-Output " The $driveletter drive has about $usedStorageMB MB of storage used."
 
 Start-Sleep -Seconds 3
 
@@ -236,7 +247,7 @@ Write-Host ""
 
 Write-Host "The $driveletter drive has about $totalStorageGB GB of total storage with $availableStorageGB GB available."
 
-Start-Sleep -Seconds -3
+Start-Sleep -Seconds 3
 
 # Display how much storage is available and the total amount of storage used.
 
@@ -248,11 +259,15 @@ $availablePercentageGB = 100 - $usedPercentageGB
 
 Write-Host ""
 
-Write-Output "The $driveletter has about $usedStorageGB MB of storage used."
+Write-Output "The $driveletter drive has about $usedStorageGB MB of storage used."
+
+Write-Host ""
 
 Start-Sleep -Seconds 3
 
-Write-Host "$driveletter is at $usedPercentageGB% capacity with $availablePercentageGB% remaining." 
+Write-Host "$driveletter is at $usedPercentageGB% capacity with $availablePercentageGB% remaining."
+
+Write-Host ""
 
 }
 
@@ -279,7 +294,11 @@ $largestFile = Get-ChildItem -Path $drivePath -File | Sort-Object Length -Descen
 # If the storage is less than 25%, display warning message and list the top three files with the most storage.
 
 else {
-Write-Output "You are running low on space. Here are the top three files in $driveltter drive that are taking up the most storage."
+Write-Output "You are running low on space. Here are the top three files in $driveletter drive that are taking up the most storage."
+
+Write-Host ""
+
+
 
 }
 
