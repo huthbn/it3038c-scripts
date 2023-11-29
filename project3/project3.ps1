@@ -301,7 +301,14 @@ Write-Host ""
 # Check if the selected drive contains files
 if ($largestFile) {
     Write-Output "Largest File:"
+
+    Write-Host ""
+
+    Start-Sleep -Seconds 2
+
     Write-Output "Name: $($largestFile.Name)"
+
+    Write-Host ""
 
     #Add error handling for displaying bytes, MBs, or greater
 
@@ -310,7 +317,7 @@ if ($largestFile) {
         Write-Output "$($largestFile.Length / 1KB) KB"
     }
     
-    elseif ($largestFile.Length -lt 1GB) {
+    elseif (($largestFile.Length -lt 1GB) -and ($largestFile.Length -gt 1KB)) {
 
         Write-Output "Size: $($largestFile.Length / 1MB) MB"
     }
@@ -328,6 +335,11 @@ else {
 if($secondLargestFile) {
 
 Write-Output "Second Largest File:"
+
+Write-Host ""
+
+Start-Sleep -Seconds 2
+
 Write-Output "Name: $($SecondlargestFile.Name)"
 
 #Add error handling for displaying bytes, MBs, or greater
@@ -348,14 +360,22 @@ else {
 
 } 
 
+Write-Host ""
 
 else {
-Write-Output "No other files found on the $driveletter drive."
+
+
+Write-Output "No second file was found in the $driveletter drive."
 }
 
 if($thirdLargestFile) {
 
     Write-Output "Third Largest File:"
+
+    Write-Host ""
+
+    Start-Sleep -Seconds 2
+
     Write-Output "Name: $($thirdLargestFile.Name)"
     
     #Add error handling for displaying bytes, MBs, or greater
@@ -378,10 +398,12 @@ if($thirdLargestFile) {
     
     
     else {
-    Write-Output "No other files found on the $driveletter drive."
-    }
-    
 
+        Write-Host ""
+
+    Write-Output "No third file was found in the $driveletter drive."
+
+    }
 
 }
 
