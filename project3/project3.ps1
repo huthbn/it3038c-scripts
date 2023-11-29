@@ -120,16 +120,18 @@ Write-Output "$driveletter is at $usedPercentageMB% capacity with $availablePerc
 
             if ($largestFile.Length -lt 1MB) {
 
-                Write-Output "$($largestFile.Length / 1KB) KB"
+                Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+
             }
     
             elseif ($largestFile.Length -lt 1GB) {
 
-                Write-Output "Size: $($largestFile.Length / 1MB) MB"
+            Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
+
             }
 
             else {
-                Write-Output "Size: $($largestFile.Length / 1GB) GB"
+                Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
             }
     } 
 
@@ -246,20 +248,25 @@ $largestFile = Get-ChildItem -Path $driveletter -File | Sort-Object Length -Desc
 
             if ($largestFile.Length -lt 1MB) {
 
-                Write-Output "$($largestFile.Length / 1KB) KB"
+                Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+
             }
     
             elseif ($largestFile.Length -lt 1GB) {
 
-                Write-Output "Size: $($largestFile.Length / 1MB) MB"
+                Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
+
             }
 
             else {
-                Write-Output "Size: $($largestFile.Length / 1GB) GB"
+
+                Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
+
             }
     } 
 
     else {
+
         Write-Output "No files found on the $driveletter drive."
     }
 
