@@ -234,33 +234,37 @@ $availableStorageGB = [math]::Round($($disk.FreeSpace / 1GB))
 
 Write-Host ""
 
-Write-Host "The $driveletter drive has about $totalStorageGB GB of total storage. There are $availableStorageGB GB left."
+Write-Host "The $driveletter drive has about $totalStorageGB GB of total storage with $availableStorageGB GB available."
 
-Write-Host ""
+Start-Sleep -Seconds -3
 
-# Display storage size, how much is available, and the total amount of storage used.
+# Display how much storage is available and the total amount of storage used.
 
 $usedStorageGB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1GB)
 
 $usedPercentageGB = [math]::Round(($usedStorageGB / $totalStorageGB)* 100)
 
-Write-Output " The $driveletter has about $usedStorageGB GB of storage left at $usedPercentageGB% capacity."
-
 $availablePercentageGB = 100 - $usedPercentageGB
+
+Write-Host ""
+
+Write-Output "The $driveletter has about $usedStorageGB MB of storage used."
+
+Start-Sleep -Seconds 3
 
 Write-Host "$driveletter is at $usedPercentageGB% capacity with $availablePercentageGB% remaining." 
 
 }
 
-# If the storage is above 50%, say "You have plenty of space left!"
+# Display message based on available storage
 
 if ( $availablePercentageGB -gt 50 ) {
 
-Write-Output "You have plenty of storage left."
+Write-Output "You have plenty of storage left!"
 
 }
 
-# If the storage is between 25%-50%, say "You still have some space left" and show the top three files that are taking up the most space. 
+# If the storage is between 25%-50%, display warning message and show the top file taking the most space
 
 elseif (($availablePercentageGB -gt 25) -and ($availablePercentageGB -le 50)) {
 
@@ -272,7 +276,7 @@ $largestFile = Get-ChildItem -Path $drivePath -File | Sort-Object Length -Descen
 
 }
 
-# If the storage is less than 25%, say "You are running low on space!" and display the top files with the most storage.
+# If the storage is less than 25%, display warning message and list the top three files with the most storage.
 
 else {
 Write-Output "You are running low on space. Here are the top three files in $driveltter drive that are taking up the most storage."
