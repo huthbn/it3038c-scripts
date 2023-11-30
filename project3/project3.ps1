@@ -94,13 +94,13 @@ Write-Output "$driveletter is at $usedPercentageMB% capacity with $availablePerc
 
 # Display message based on available storage
 
-    if ($availableStorageMB -gt 50) {
+    if ($availablePercentageMB -gt 50) {
 
     Write-Output "You have plenty of storage left!"
 
     }
     
-    elseif (($availableStorageMB -gt 25) -and ($availableStorageMB -lt 50)) {
+    elseif (($availablePercentageMB -gt 25) -and ($availablePercentageMB -lt 50)) {
 
         Write-Output "You still have some space left."
 
@@ -143,10 +143,13 @@ Write-Output "$driveletter is at $usedPercentageMB% capacity with $availablePerc
 
 else {
 
-Write-Output "You are running low on storage in the $driveletter drive."
+Write-Output "You are running low on storage in the $driveletter drive. This is the largest file in the $driveletter drive:"
 
 $largestFile = Get-ChildItem -Path $driveletter -File | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
 
+Write-Host ""
+
+Start-Sleep -Seconds 2
 
 # Check if the selected drive contains files
 if ($largestFile) {
