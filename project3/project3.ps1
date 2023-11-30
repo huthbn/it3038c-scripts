@@ -2,7 +2,7 @@
 
 Write-Host ""
 
-Write-Output "This script will display information about your selected hard drive."
+Write-Output "Welcome! This script is designed to give users storage information on their external hard drives."
 
 Write-Host ""
 
@@ -12,344 +12,379 @@ Write-Output "At the end, you will be given the opportunity to check another har
 
 do {
 
-# Add delay and space before the next prompt
+    Start-Sleep -Seconds 3
 
-Start-Sleep -Seconds 3
+    # Reset value of $largestDrive variable back to null
 
-Write-Host ""
-
-# Prompt user to enter hard drive letter 
-
-do {
-
-$driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
-
-#Check if user has entered the C: Drive 
-
-if ($driveletter -eq 'C:') {
-
-    Write-Output "Note: You have entered the C: drive. The script will show storage information, but if you are low on space, it will only show the largest file in the current directory you are working in."
+    $largestFile = $null
 
     Write-Host ""
 
-    Start-Sleep -Seconds 4
-}
+    # Prompt user to enter hard drive letter 
 
-# Check to make sure user entered the drive letter in the correctn format. Throw error if not
-if ($driveletter -notlike '*:*') {
+    do {
 
-    Start-Sleep -Seconds 1
+        $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
 
-    Write-Host ""
+        #Check if user has entered the C: Drive 
 
-    Write-Host "Error: Please include a colon at the end of the drive letter."
+        if ($driveletter -eq 'C:') {
 
-    Write-Host ""
+            Write-Output "Note: You have entered the C: drive. This script is designed for external hard drives."
 
-    Start-Sleep -Seconds 2
+            Start-Sleep -Seconds 2
 
-    }
-} 
+            Write-Host ""
 
-while ($driveletter -notlike '*:*')
+            Write-Output "This script will display the correct storage information for the C: drive, but largest file size and other information may be skewed."
 
-#Display all storage information based on selected drive
+            Write-Host ""
 
-$disk = Get-WmiObject -Class Win32_LogicalDisk -Filter "DeviceID='$driveletter'"
+            Start-Sleep -Seconds 3
 
-#Display information about the selected hard drive
+            Write-Output "It is best to select an external hard drive for the full functionality and accuracy of the script"
 
-Write-Host ""
+            Start-Sleep -Seconds 4
 
-Write-Host "Here is some information about the ${driveletter} drive:"
+            Write-Host ""
 
-# Display volume name
+        }
 
-$volumeName = $disk.VolumeName
+    # Check to make sure user entered the drive letter in the correct format. Display error message if no colon was inserted.
 
-Start-Sleep -Seconds 3
+        if ($driveletter -notlike '*:*') {
 
-Write-Output "The volume name is $volumeName."
+            Start-Sleep -Seconds 1
 
-Start-Sleep -Seconds 3
+            Write-Host ""
 
-# If the capacity/availability of storage is less than 1GB, calculate and display the data in MB.
+            Write-Host "Error: Please include a colon at the end of the drive letter."
 
-if ($disk.Size -lt 1GB -or $disk.FreeSpace -lt 1GB) {
+            Write-Host ""
 
-$totalStorageMB = [math]::Round($disk.Size / 1MB)   
+            Start-Sleep -Seconds 2
 
-$availableStorageMB = [math]::Round($($disk.FreeSpace / 1MB))
-
-Write-Host ""
-
-Write-Host "The $driveletter drive has about $totalStorageMB MB of total storage with $availableStorageMB MB available."
-
-Start-Sleep -Seconds 3
-
-# Display storage size, how much is available, and the total amount of storage used.
-
-$usedStorageMB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1MB)
-
-$usedPercentageMB = [math]::Round(($usedStorageMB / $totalStorageMB)* 100)
-
-$availablePercentageMB = 100 - $usedPercentageMB
-
-Write-Host ""
-
-Write-Output " The $driveletter drive has about $usedStorageMB MB of storage used."
-
-Start-Sleep -Seconds 3
-
-Write-Output "$driveletter is at $usedPercentageMB% capacity with $availablePercentageMB% remaining."
-
-# Display message based on available storage
-
-    if ($availablePercentageMB -gt 50) {
-
-    Write-Output "You have plenty of storage left!"
-
-    }
-    
-    elseif (($availablePercentageMB -gt 25) -and ($availablePercentageMB -lt 50)) {
-
-        Write-Output "You still have some space left. This is the largest file in the $driveletter drive:"
-
-        Start-Sleep -Seconds 2
-
-        # Calculate and display the biggest file in the selected drive
-
-        # Get the largest file in the specified drive
-        $largestFile = Get-ChildItem -Path $driveletter -File | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
-
-        # Check if the selected drive contains files
-        if ($largestFile) {
-
-            Write-Output "Name: $($largestFile.Name)"
-
-    #Add error handling for displaying bytes, MBs, or greater
-
-            if ($largestFile.Length -lt 1MB) {
-
-                Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
-
-            }
-    
-            elseif ($largestFile.Length -lt 1GB) {
-
-            Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
-
-            }
-
-            else {
-                Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
-            }
+        }
     } 
 
-    else {
-        Write-Output "No files found on the $driveletter drive."
-    }
+    while ($driveletter -notlike '*:*')
 
-    }
+    #Display all storage information based on selected drive
 
-else {
+    $disk = Get-WmiObject -Class Win32_LogicalDisk -Filter "DeviceID='$driveletter'"
 
-Write-Output "You are running low on storage in the $driveletter drive. This is the largest file in the $driveletter drive:"
+    #Display information about the selected hard drive
 
-$largestFile = Get-ChildItem -Path $driveletter -File | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
+    Write-Host ""
 
-Write-Host ""
+    Write-Host "Here is some information about the ${driveletter} drive:"
 
-Start-Sleep -Seconds 2
+    Write-Host ""
 
-# Check if the selected drive contains files
-if ($largestFile) {
-no
-        Write-Output "Name: $($largestFile.Name)"
+    # Display volume name
 
-        #Add error handling for displaying bytes, MBs, or greater
+    $volumeName = $disk.VolumeName
 
-    if ($largestFile.Length -lt 1MB) {
+    Start-Sleep -Seconds 3
 
-        Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+    Write-Output "The volume name is $volumeName."
 
-    }
+    Start-Sleep -Seconds 3
+
+    # If the capacity/availability of storage is less than 1GB, calculate and display the data in MB.
+
+    if ($disk.Size -lt 1GB -or $disk.FreeSpace -lt 1GB) {
+
+        $totalStorageMB = [math]::Round($disk.Size / 1MB)   
+
+        $availableStorageMB = [math]::Round($($disk.FreeSpace / 1MB))
+
+        Write-Host ""
+
+        Write-Host "The $driveletter drive has about $totalStorageMB MB of total storage with $availableStorageMB MB available."
+
+        Start-Sleep -Seconds 3
+
+        # Display how much storage is used, how much is available, and display these in MB and percentages
+
+        $usedStorageMB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1MB)
+
+        $usedPercentageMB = [math]::Round(($usedStorageMB / $totalStorageMB)* 100)
+
+        $availablePercentageMB = 100 - $usedPercentageMB
+
+        Write-Host ""
+
+        Write-Output " The $driveletter drive has about $usedStorageMB MB of storage used."
+
+        Start-Sleep -Seconds 3
+
+        Write-Output "$driveletter is at $usedPercentageMB% capacity with $availablePercentageMB% remaining."
+
+        # Display message based on available storage
+
+        if ($availablePercentageMB -ge 50) {
+
+            Write-Output "You have plenty of storage left!"
+
+        }
     
-    elseif (($largestFile.Length -gt 1MB) -and ( $largestFile.Length -lt 1GB)) {
+        elseif (($availablePercentageMB -gt 25) -and ($availablePercentageMB -lt 50)) {
 
-        Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
+            Write-Output "You still have some space left. This is the largest file in the $driveletter drive:"
+
+            Start-Sleep -Seconds 2
+
+            # Calculate and display the biggest file in the selected drive 
+
+            $largestFile = Get-ChildItem -Path "$driveletter\*" -File -Recurse | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
+
+            # Check if the selected drive contains files
+
+                if ($largestFile) {
+
+                    Write-Output "Name: $($largestFile.Name)"
+    
+                    Write-Host ""
+    
+                    Start-Sleep -Seconds 3
+
+                    # Add error handling for displaying bytes, MBs, or greater
+
+                    if ($largestFile.Length -lt 1MB) {
+
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+
+                    }
+
+                    elseif (($largestFile.Length -ge 1MB) -and ($largestFile.Length -lt 1GB)) {
+
+                        Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
+                    }
+
+                    else {
+
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
+
+                    }
+
+                } 
+
+                else {
+
+                    Write-Output "No files found on the $driveletter drive."
+
+                }
+
+        }
+
+        else {
+
+            Write-Output "You are running low on storage in the $driveletter drive. This is the largest file in the $driveletter drive:"
+
+            $largestFile = Get-ChildItem -Path $driveletter -File | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
+
+            Write-Host ""
+
+            Start-Sleep -Seconds 2
+
+            # Check if the selected drive contains files
+
+            if ($largestFile) {
+
+                Write-Output "Name: $($largestFile.Name)"
+
+                #Add error handling for displaying bytes, MBs, or greater
+
+                if ($largestFile.Length -lt 1MB) {
+
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+
+                }
+    
+                elseif (($largestFile.Length -ge 1MB) -and ( $largestFile.Length -lt 1GB)) {
+
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
+
+                }
+
+                else {
+        
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
+
+                }
+
+            } 
+
+
+            else {
+
+                Write-Output "No files found on the $driveletter drive."
+
+            }
+
+        }
 
     }
+
+    # If the capacity or availability of selected drive is more than 1GB, then calculate and display information in GB
 
     else {
-        
-        Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
 
-    }
-} 
+        $availableStorageGB = [math]::Round($disk.FreeSpace / 1GB)
 
+        Write-Host ""
 
-else {
-    Write-Output "No files found on the $driveletter drive."
-}
+        Write-Host "The $driveletter drive has about $totalStorageGB GB of total storage with $availableStorageGB GB available."
 
-}
+        Start-Sleep -Seconds 3
 
-}
+        # Display how much storage is available and the total amount of storage used.
 
-# If the capacity is more than 1GB, then calculate and display information in GB
+        $usedStorageGB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1GB)
 
-else {
+        $usedPercentageGB = [math]::Round(($usedStorageGB / $totalStorageGB)* 100)
 
-$totalStorageGB =  [math]::Round($disk.Size /1GB)
+        $availablePercentageGB = 100 - $usedPercentageGB
 
-$availableStorageGB = [math]::Round($($disk.FreeSpace / 1GB))
+        Write-Host ""
 
-Write-Host ""
-
-Write-Host "The $driveletter drive has about $totalStorageGB GB of total storage with $availableStorageGB GB available."
-
-Start-Sleep -Seconds 3
-
-# Display how much storage is available and the total amount of storage used.
-
-$usedStorageGB = [math]::Round(($disk.Size - $disk.FreeSpace) / 1GB)
-
-$usedPercentageGB = [math]::Round(($usedStorageGB / $totalStorageGB)* 100)
-
-$availablePercentageGB = 100 - $usedPercentageGB
-
-Write-Host ""
-
-Write-Output "The $driveletter drive has about $usedStorageGB GB of storage used."
-
-Write-Host ""
-
-Start-Sleep -Seconds 3
-
-Write-Host "$driveletter is at $usedPercentageGB% capacity with $availablePercentageGB% remaining."
-
-Write-Host ""
-
-}
-
-# Display message based on available storage
-
-if ( $availablePercentageGB -gt 50 ) {
-
-Write-Output "You have plenty of storage left!"
-
-Write-Host ""
-
-Start-Sleep -Seconds 3
-
-}
-
-# If the storage is between 25%-50%, display warning message and show the top file taking the most space
-
-elseif (($availablePercentageGB -gt 25) -and ($availablePercentageGB -le 50)) {
-
-Write-Output "You still have some space left. This is the largest file in the $driveleter drive"
-
-Start-Sleep -Seconds 2
-
-# Get the largest file in the specified drive
-        
-$largestFile = Get-ChildItem -Path $driveletter -File | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
-
-    # Check if the selected drive contains files
-    if ($largestFile) {
-
-        Write-Output "Name: $($largestFile.Name)"
+        Write-Output "The $driveletter drive has about $usedStorageGB GB of storage used."
 
         Write-Host ""
 
         Start-Sleep -Seconds 3
 
-    #Add error handling for displaying bytes, MBs, or greater
+        Write-Host "$driveletter is at $usedPercentageGB% capacity with $availablePercentageGB% remaining."
 
-            if ($largestFile.Length -lt 1MB) {
+        Write-Host ""
 
-                Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+        # Display message based on available storage
 
-            }
+        if ( $availablePercentageGB -gt 50 ) {
+
+            Write-Output "You have plenty of storage left!"
+
+            Write-Host ""
+
+            Start-Sleep -Seconds 3
+
+        }
+
+        # If the storage is between 25%-50%, display warning message and display the largest file name and size
+
+        elseif (($availablePercentageGB -gt 25) -and ($availablePercentageGB -le 50)) {
+
+            Write-Output "You still have some space left. This is the largest file in the $driveletter drive"
+
+            Start-Sleep -Seconds 2
+
+            Write-Host ""
+        
+            # Get the largest file in the entire drive
+
+            $largestFile = Get-ChildItem -Path "$driveletter\*" -File -Recurse | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
+
+            # Check if the selected drive contains files
+
+            if ($largestFile) {
+
+                Write-Output "Name: $($largestFile.Name)"
     
-            elseif ($largestFile.Length -lt 1GB) {
+                Write-Host ""
+    
+                Start-Sleep -Seconds 3
 
-                Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
+                # Add error handling for displaying bytes, MBs, or greater
 
-            }
+                if ($largestFile.Length -lt 1MB) {
+
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+               
+                }
+
+                elseif (($largestFile.Length -ge 1MB) -and ($largestFile.Length -lt 1GB)) {
+
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
+                }
+
+                else {
+
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
+
+                }
+
+            } 
 
             else {
 
-                Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
+                Write-Output "No files found on the $driveletter drive."
 
             }
-    } 
 
-    else {
+        }
 
-        Write-Output "No files found on the $driveletter drive."
+        # If the storage is less than 25%, display warning message and list the largest file in the drive.
+
+        else {
+
+            Write-Output "You are running low on space. This is the largest file in the $driveletter drive:"
+
+            Write-Host ""
+
+            Start-Sleep -Seconds 3
+
+            # Check if the selected drive contains files
+
+            if ($largestFile) {
+
+                Start-Sleep -Seconds 2
+
+                Write-Output "Name: $($largestFile.Name)"
+
+                Write-Host ""
+
+                Start-Sleep -Seconds 3
+
+            # Calculate and display storage size in KB, MB, or GB
+
+                if ($largestFile.Length -lt 1MB) {
+
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+
+                }
+    
+                elseif (($largestFile.Length -ge 1MB) -and ($largestFile.Length -lt 1GB)) {
+
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
+
+                }
+
+                else {
+        
+                    Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
+
+                }
+
+            } 
+
+            else {
+
+                Write-Output "No files found on the $driveletter drive."
+
+            }
+
+        }
+
     }
-
-}
-
-# If the storage is less than 25%, display warning message and list the largest with the most storage.
-
-else {
-Write-Output "You are running low on space. This is the largest file in the $driveletter drive:"
-
-Write-Host ""
-
-Start-Sleep -Seconds 3
-
-# Check if the selected drive contains files
-
-if ($largestFile) {
-
-    Start-Sleep -Seconds 2
-
-    Write-Output "Name: $($largestFile.Name)"
 
     Write-Host ""
 
     Start-Sleep -Seconds 3
 
-    #Add error handling for displaying bytes, MBs, or greater
+    # Prompt user to enter another hard drive or exit the script
 
-    if ($largestFile.Length -lt 1MB) {
-
-        Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
-
-    }
-    
-    elseif (($largestFile.Length -gt 1MB) -and ($largestFile.Length -lt 1GB)) {
-
-        Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
-
-    }
-
-    else {
-        
-        Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
-
-    }
-} 
-
-
-else {
-    Write-Output "No files found on the $driveletter drive."
-}
-
-} 
-
-Write-Host ""
-
-Start-Sleep -Seconds 3
-
-# Prompt user to enter another hard drive or exit the script
-
- $checkAnotherDrive = Read-Host -Prompt "Would you like to check another hard drive? (Enter yes/no)" 
+    $checkAnotherDrive = Read-Host -Prompt "Would you like to check another hard drive? (Enter yes/no)" 
 
 }
 
