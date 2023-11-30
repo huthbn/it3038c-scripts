@@ -117,9 +117,13 @@ do {
 
         Write-Output "The $driveletter drive has about $usedStorageMB MB of storage used."
 
+        Write-Output ""
+
         Start-Sleep -Seconds 3
 
         Write-Output "$driveletter is at $usedPercentageMB% capacity with $availablePercentageMB% remaining."
+
+        Write-Host ""
 
         # Display message based on available storage
 
@@ -135,7 +139,9 @@ do {
 
             Start-Sleep -Seconds 2
 
-            # Calculate and display the biggest file in the selected drive 
+            Write-Host ""
+
+            # Get the largest file in the entire drive
 
             $largestFile = Get-ChildItem -Path "$driveletter\*" -File -Recurse | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
 
@@ -153,7 +159,7 @@ do {
 
                     if ($largestFile.Length -lt 1MB) {
 
-                    Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+                        Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
 
                     }
 
@@ -178,23 +184,27 @@ do {
 
         }
 
+        # If available storage is less than 25%, display warning message and list the largest file in the drive
+
         else {
 
-            Write-Output "You are running low on storage in the $driveletter drive. This is the largest file in the $driveletter drive:"
+            Write-Output "You are running low on space in the $driveletter drive. This is the largest file in the $driveletter drive:"
 
             $largestFile = Get-ChildItem -Path $driveletter -File | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
 
             Write-Host ""
 
-            Start-Sleep -Seconds 2
+            Start-Sleep -Seconds 3
 
             # Check if the selected drive contains files
 
             if ($largestFile) {
 
+                Start-Sleep -Seconds 2
+
                 Write-Output "Name: $($largestFile.Name)"
 
-                #Add error handling for displaying bytes, MBs, or greater
+                # Calculate and display storage size in KB, MB, or GB
 
                 if ($largestFile.Length -lt 1MB) {
 
