@@ -87,7 +87,7 @@ do {
 
     Start-Sleep -Seconds 3
 
-    Write-Output "The volume name is $volumeName."
+    Write-Output "The volume name is $volumeName"
 
     Start-Sleep -Seconds 3
 
@@ -115,7 +115,7 @@ do {
 
         Write-Host ""
 
-        Write-Output " The $driveletter drive has about $usedStorageMB MB of storage used."
+        Write-Output "The $driveletter drive has about $usedStorageMB MB of storage used."
 
         Start-Sleep -Seconds 3
 
