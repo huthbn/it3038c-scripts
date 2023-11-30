@@ -24,6 +24,17 @@ do {
 
 $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
 
+#Check if user has entered the C: Drive 
+
+if ($driveletter -eq 'C:') {
+
+    Write-Output "Note: You have entered the C: drive. The script will show storage information, but if you are low on space, it will only show the largest file in the current directory you are working in."
+
+    Write-Host ""
+
+    Start-Sleep -Seconds 4
+}
+
 # Check to make sure user entered the drive letter in the correctn format. Throw error if not
 if ($driveletter -notlike '*:*') {
 
@@ -102,7 +113,7 @@ Write-Output "$driveletter is at $usedPercentageMB% capacity with $availablePerc
     
     elseif (($availablePercentageMB -gt 25) -and ($availablePercentageMB -lt 50)) {
 
-        Write-Output "You still have some space left."
+        Write-Output "You still have some space left. This is the largest file in the $driveletter drive:"
 
         Start-Sleep -Seconds 2
 
@@ -113,7 +124,7 @@ Write-Output "$driveletter is at $usedPercentageMB% capacity with $availablePerc
 
         # Check if the selected drive contains files
         if ($largestFile) {
-            Write-Output "Largest File:"
+
             Write-Output "Name: $($largestFile.Name)"
 
     #Add error handling for displaying bytes, MBs, or greater
@@ -153,7 +164,7 @@ Start-Sleep -Seconds 2
 
 # Check if the selected drive contains files
 if ($largestFile) {
-        Write-Output "Largest File:"
+no
         Write-Output "Name: $($largestFile.Name)"
 
         #Add error handling for displaying bytes, MBs, or greater
@@ -228,13 +239,17 @@ if ( $availablePercentageGB -gt 50 ) {
 
 Write-Output "You have plenty of storage left!"
 
+Write-Host ""
+
+Start-Sleep -Seconds 3
+
 }
 
 # If the storage is between 25%-50%, display warning message and show the top file taking the most space
 
 elseif (($availablePercentageGB -gt 25) -and ($availablePercentageGB -le 50)) {
 
-Write-Output "You still have some space left."
+Write-Output "You still have some space left. This is the largest file in the $driveleter drive"
 
 Start-Sleep -Seconds 2
 
@@ -244,9 +259,12 @@ $largestFile = Get-ChildItem -Path $driveletter -File | Sort-Object Length -Desc
 
     # Check if the selected drive contains files
     if ($largestFile) {
-        Write-Output "Largest File:"
 
         Write-Output "Name: $($largestFile.Name)"
+
+        Write-Host ""
+
+        Start-Sleep -Seconds 3
 
     #Add error handling for displaying bytes, MBs, or greater
 
@@ -288,15 +306,14 @@ Start-Sleep -Seconds 3
 # Check if the selected drive contains files
 
 if ($largestFile) {
-    Write-Output "Largest File:"
-
-    Write-Host ""
 
     Start-Sleep -Seconds 2
 
     Write-Output "Name: $($largestFile.Name)"
 
     Write-Host ""
+
+    Start-Sleep -Seconds 3
 
     #Add error handling for displaying bytes, MBs, or greater
 
@@ -343,3 +360,5 @@ Write-Host ""
 Start-Sleep -Seconds 2
 
 Write-Output "Hope you've found the information valuable!"
+
+Write-Host ""
