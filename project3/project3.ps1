@@ -160,18 +160,19 @@ if ($largestFile) {
 
     if ($largestFile.Length -lt 1MB) {
 
-        Write-Output "$($largestFile.Length / 1KB) KB"
+        Write-Output "Size: $([math]::Round($largestFile.Length / 1KB)) KB"
+
     }
     
-    elseif ($largestFile.Length -lt 1GB) {
+    elseif (($largestFile.Length -gt 1MB) -and ( $largestFile.Length -lt 1GB)) {
 
-        Write-Output "Size: $($largestFile.Length / 1MB) MB"
+        Write-Output "Size: $([math]::Round($largestFile.Length / 1MB)) MB"
 
     }
 
     else {
         
-        Write-Output "Size: $($largestFile.Length / 1GB) GB"
+        Write-Output "Size: $([math]::Round($largestFile.Length / 1GB)) GB"
 
     }
 } 
