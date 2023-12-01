@@ -168,7 +168,7 @@ do {
 
         # If the C: drive is selected, skip this section of the script
 
-        while (($driveletter -ne "C:") -and ($driveletter -ne "C")) {
+        if (($driveletter -ne "C:") -or ($driveletter -ne "C")) {
 
         # Display message based on available storage
 
@@ -320,7 +320,7 @@ do {
 
         # If C: drive is selected, skip this section of the script.
 
-        while (($driveletter -ne "C:") -and ($driveletter -ne "C")) {
+        if (($driveletter -notlike "C:") -and ($driveletter -notlike "C")) {
 
         # Display message based on available storage
 
