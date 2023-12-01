@@ -1,8 +1,8 @@
 # Hard Drive Checker Documentation
 
-## This is the Final Project script that will check external hard drives for storage information. It is designed to be simple to use, yet provide important storage information such as total storage, availability, and more. If the selected drive has less than 50% available storage, then a warning message will be displayed and the largest file name and size will be shown. 
+This is the Final Project script that will check external hard drives for storage information. It is designed to be simple to use, yet provide important storage information such as total storage, availability, and more. If the selected drive has less than 50% available storage, then a warning message will be displayed and the largest file name and size will be shown. 
 
-### Note: This script is designed for checking external hard drives. If you decide to check the local (C:) drive, then the script will run, but the results will be limited to the storage information and will not show the largest file if storage space is low. This is due to the issue of the script retreiving information from the local drive instead of external drives.
+Note: This script is designed for checking external hard drives. If you decide to check the local (C:) drive, then the script will run, but the results will be limited to the storage information and will not show the largest file if storage space is low. This is due to the issue of the script retreiving information from the local drive instead of external drives.
 
 ## Table of Contents
 
