@@ -10,10 +10,14 @@ If the selected drive has less than 50% available storage, then a warning messag
 
 #### This is due to the issue of the script retreiving information from the local drive instead of external drives.
 
+---
+
 ## Table of Contents
 
 - [Installation](#instlalation)
 - [Usage](#usage)
+
+---
 
 ## Installation
 
@@ -22,6 +26,8 @@ To run this script, you will need to download it [here](./project3.ps1). I prefe
 After downloading and opening the script in a supported IDE, click "Run" to run it.
 
 No other installation is requred.
+
+---
 
 ## Usage
 
