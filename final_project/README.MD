@@ -34,7 +34,8 @@ To run this script, you will need to do the following:
     ```powershell
       Set-ExecutionPolicy Unrestricted -Scope Process
       ```
-    -Select "Yes to All" button in the prompt
+
+    - Select "Yes to All" button in the prompt
 
 4. Open the [final_project.ps1](./final_project.ps1) in the selected IDE. In the warnign prompt, select "Run Once" to run the script
 
