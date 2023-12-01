@@ -19,13 +19,30 @@ If the selected drive has less than 50% available storage, then a warning messag
 
 ---
 
-## Installation
+## Installation Steps
 
-To run this script, you will need to download it [here](./project3.ps1). I prefer to use Powershell ISE to run the script, but any IDE compatible with .ps1 files will work.
+To run this script, you will need to do the following:
 
-After downloading and opening the script in a supported IDE, click "Run" to run it.
+1. Download the script [here](./project3.ps1)
 
-No other installation is requred.
+  -Save to a memorable location on your computer so you can easily locate it later
+
+2. Choose the IDe you will use to run the script
+  
+  -I prefer to use Powershell ISE to run the script, but any IDE compatible with .ps1 files will work
+
+3. Set the Execution-Policy on your system to allow the script to run
+
+  - Use the following command in a terminal on your chose IDE to allow the execution of scripts for the current terminal session
+
+    Set-ExecutionPolicy Unrestricted -Scope Process
+
+      -Select "Yes to All" button in the prompt
+
+4. Open the [final_project.ps1](./final_project.ps1) in the selected IDE. In the warnign prompt, select "Run Once" to run the script
+
+
+
 
 ---
 
