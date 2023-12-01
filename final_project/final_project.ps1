@@ -112,8 +112,6 @@ do {
 
     $disk = Get-WmiObject -Class Win32_LogicalDisk -Filter "DeviceID='$driveletter'"
 
-    #Display information about the selected hard drive
-
     Write-Host ""
 
     Write-Host "Here is some information about the ${driveletter} drive:"
@@ -186,11 +184,11 @@ do {
 
                 Write-Host ""
 
-                # Get the largest file in the entire drive
+                # Get the largest file in the entire drive.
 
                 $largestFile = Get-ChildItem -Path "$driveletter\*" -File -Recurse | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
 
-                # Check if the selected drive contains files
+                # Check if the selected drive contains files.
 
                     if ($largestFile) {
 
@@ -200,7 +198,7 @@ do {
     
                         Start-Sleep -Seconds 3
 
-                        # Add error handling for displaying bytes, MBs, or greater
+                        # Add error handling for displaying bytes, MBs, or greater.
 
                             if ($largestFile.Length -lt 1MB) {
 
@@ -229,7 +227,7 @@ do {
 
             }
 
-            # If available storage is less than 25%, display warning message and list the largest file in the drive
+            # If available storage is less than 25%, display warning message and list the largest file in the drive.
 
             else {
 
@@ -241,7 +239,7 @@ do {
 
                 Start-Sleep -Seconds 3
 
-                # Check if the selected drive contains files
+                # Check if the selected drive contains files.
 
                 if ($largestFile) {
 
@@ -249,7 +247,7 @@ do {
 
                     Write-Output "Name: $($largestFile.Name)"
 
-                    # Calculate and display storage size in KB, MB, or GB
+                    # Calculate and display storage size in KB, MB, or GB.
 
                         if ($largestFile.Length -lt 1MB) {
 
@@ -283,7 +281,7 @@ do {
 
     }
 
-    # If the capacity or availability of selected drive is more than 1GB, then calculate and display information in GB
+    # If the capacity or availability of selected drive is more than 1GB, then calculate and display information in GB.
 
     else {
 
@@ -321,7 +319,7 @@ do {
 
         if (($driveletter -notlike "C:") -and ($driveletter -notlike "C")) {
 
-            # Display message based on available storage
+            # Display message based on available storage.
 
             if ( $availablePercentageGB -gt 50 ) {
 
@@ -333,7 +331,7 @@ do {
 
             }
 
-            # If the storage is between 25%-50%, display warning message and display the largest file name and size
+            # If the storage is between 25%-50%, display warning message and display the largest file name and size.
 
             elseif (($availablePercentageGB -gt 25) -and ($availablePercentageGB -le 50)) {
 
@@ -343,11 +341,11 @@ do {
 
                 Write-Host ""
         
-                # Get the largest file in the entire drive
+                # Get the largest file in the entire drive.
 
                 $largestFile = Get-ChildItem -Path "$driveletter\*" -File -Recurse | Sort-Object Length -Descending | Select-Object -First 1 -Property Name, Length
 
-                # Check if the selected drive contains files
+                # Check if the selected drive contains files.
 
                     if ($largestFile) {
 
@@ -357,7 +355,7 @@ do {
     
                         Start-Sleep -Seconds 3
 
-                        # Add error handling for displaying bytes, MBs, or greater
+                        # Add error handling for displaying bytes, MBs, or greater.
 
                         if ($largestFile.Length -lt 1MB) {
 
@@ -396,7 +394,7 @@ do {
 
             Start-Sleep -Seconds 3
 
-            # Check if the selected drive contains files
+            # Check if the selected drive contains files.
 
                 if ($largestFile) {
 
@@ -408,7 +406,7 @@ do {
 
                     Start-Sleep -Seconds 3
 
-                # Calculate and display storage size in KB, MB, or GB
+                # Calculate and display storage size in KB, MB, or GB.
 
                     if ($largestFile.Length -lt 1MB) {
 
@@ -446,7 +444,7 @@ do {
 
     Start-Sleep -Seconds 3
 
-    # Prompt user to enter another hard drive or exit the script
+    # Prompt user to enter another hard drive or exit the script.
 
     $checkAnotherDrive = Read-Host -Prompt "Would you like to check another hard drive? (Enter yes/no)" 
 
