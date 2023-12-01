@@ -24,7 +24,7 @@ do {
 
     do {
 
-        $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
+        $driveletter = Read-Host -Prompt "Please enter the letter of the hard drive you want to look at (make sure to include a colon)"
 
         # Check if entered drive letter exists.
 
@@ -44,7 +44,7 @@ do {
 
                 Start-Sleep -Seconds 2
 
-                Write-Output "If you entered the correct drive letter, make sure the letter is capitalized and place a colon at the end."
+                Write-Output "If you have entered the correct drive letter, make sure the letter is capitalized with a colon placed after the drive letter."
 
                 Write-Host ""
 
@@ -52,7 +52,7 @@ do {
 
                 $driveletter = $null
 
-                $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
+                $driveletter = Read-Host -Prompt "Please enter the letter of the hard drive you want to look at (make sure to include a colon)"
 
             }
 
@@ -60,7 +60,7 @@ do {
 
         while (-not $testDriveLetter)
 
-        #Check if user has entered the C: Drive 
+        # Display warning message if user enters C: drive into the prompt 
 
         if ($driveletter -eq 'C:') {
 
@@ -90,7 +90,7 @@ do {
 
     # Check to make sure user entered the drive letter in the correct format. Display error message if no colon was inserted.
 
-        if ($driveletter -notlike '*:') {
+        if ($driveletter -notlike '*:*') {
 
             Start-Sleep -Seconds 1
 
@@ -165,6 +165,10 @@ do {
         Write-Output "$driveletter is at $usedPercentageMB% capacity with $availablePercentageMB% remaining."
 
         Write-Host ""
+
+        # If the C: drive is selected, skip this section of the script
+
+        while (($driveletter -ne "C:") -and ($driveletter -ne "C")) {
 
         # Display message based on available storage
 
@@ -278,6 +282,8 @@ do {
 
     }
 
+}
+
     # If the capacity or availability of selected drive is more than 1GB, then calculate and display information in GB
 
     else {
@@ -311,6 +317,10 @@ do {
         Write-Host "$driveletter is at $usedPercentageGB% capacity with $availablePercentageGB% remaining."
 
         Write-Host ""
+
+        # If C: drive is selected, skip this section of the script.
+
+        while (($driveletter -ne "C:") -and ($driveletter -ne "C")) {
 
         # Display message based on available storage
 
@@ -428,6 +438,8 @@ do {
             }
 
         }
+
+    }
 
     }
 
