@@ -1,5 +1,7 @@
 # Hard Drive Checker Documentation
 
+---
+
 This is the Final Project script that will check external hard drives for storage information. 
 
 It is designed to be simple to use, yet provide important storage information such as total storage, availability, and more. 
