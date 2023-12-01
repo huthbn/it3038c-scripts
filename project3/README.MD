@@ -8,7 +8,7 @@ If the selected drive has less than 50% available storage, then a warning messag
 
 #### Note: This script is designed for checking external hard drives. If you decide to check the local (C:) drive, then the script will run, but the results will be limited to the storage information and will not show the largest file if storage space is low. 
 
-This is due to the issue of the script retreiving information from the local drive instead of external drives.
+#### This is due to the issue of the script retreiving information from the local drive instead of external drives.
 
 ## Table of Contents
 
