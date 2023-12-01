@@ -38,7 +38,9 @@
 
       - Select "Yes to All" button in the prompt.
 
-  4. Open the [final_project.ps1](./final_project.ps1) in the selected IDE. In the warnign prompt, select "Run Once" to run the script.
+  4. Open the [final_project.ps1](./final_project.ps1) in the selected IDE. In the warning prompt, select "Run Once" to run the script.
+
+  - Note: If the terminal is closed, you will need to run the PowerShell script again if you decide to run the [final_project.ps1](./final_project.ps1) script again
 
 ---
 
