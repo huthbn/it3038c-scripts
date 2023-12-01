@@ -30,7 +30,7 @@
 
   3. Set the Execution-Policy on your system to allow the script to run.
 
-    - Use the following command in a terminal on your chose IDE to allow the execution of scripts for the current terminal session:
+    - Use the following command in a terminal on your chosen IDE to allow the execution of scripts for the current terminal session:
 
       ```powershell
         Set-ExecutionPolicy Unrestricted -Scope Process
