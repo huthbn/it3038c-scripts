@@ -25,7 +25,6 @@ To run this script, you will need to do the following:
 
 1. Download the script [here](./project3.ps1) and save it to a memorable location on your computer
 
-
 2. Choose an IDE that supports PowerShell (.ps1) files
 
 3. Set the Execution-Policy on your system to allow the script to run
@@ -39,7 +38,6 @@ To run this script, you will need to do the following:
     - Select "Yes to All" button in the prompt
 
 4. Open the [final_project.ps1](./final_project.ps1) in the selected IDE. In the warnign prompt, select "Run Once" to run the script
-
 
 ---
 
