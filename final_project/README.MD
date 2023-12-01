@@ -1,4 +1,4 @@
-# Hard Drive Checker Documentation
+# Hard Drive Checker Documentation:
 
 - This is the Final Project script that will check external hard drives for storage information. 
 
@@ -12,14 +12,14 @@
 
 ---
 
-## Table of Contents
+## Table of Contents:
 
-- [Installation](#instlalation)
+- [Installation](#installation)
 - [Usage](#usage)
 
 ---
 
-## Installation Steps
+## Installation:
 
 - To run this script, you will need to do the following:
 
@@ -39,7 +39,7 @@
 
 ---
 
-## Usage
+## Usage:
 
 - This script is designed to provide key information on external hard drives by entering the drive leter you want to check.
 
