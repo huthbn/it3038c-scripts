@@ -17,7 +17,7 @@ If the selected drive has less than 50% available storage, then a warning messag
 
 ## Installation
 
-To run this script, you will need to download it [here](./project3.py). I prefer to use Powershell ISE to run the script, but any IDE compatible with .ps1 files will work.
+To run this script, you will need to download it [here](./project3.ps1). I prefer to use Powershell ISE to run the script, but any IDE compatible with .ps1 files will work.
 
 After downloading and opening the script in a supported IDE, click "Run" to run it.
 
