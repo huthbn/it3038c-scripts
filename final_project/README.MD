@@ -23,7 +23,7 @@ If the selected drive has less than 50% available storage, then a warning messag
 
 To run this script, you will need to do the following:
 
-1. Download the script [here](./project3.ps1) and save it to a memorable location on your computer
+1. Download the script [here](./final_project.ps1) and save it to a memorable location on your computer
 
 2. Choose an IDE that supports PowerShell (.ps1) files
 
