@@ -46,7 +46,7 @@
 
 ## Usage:
 
-- This script is designed to provide key information on external hard drives by entering the drive leter you want to check.
+- This script is designed to provide key information on external hard drives by entering the drive letter you want to check.
 
 - The script will return the volume name, total storage, free space, available storage, used storage, and the percentage of used and available storage.
 
