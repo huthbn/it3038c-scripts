@@ -23,21 +23,21 @@
 
 - To run this script, you will need to do the following:
 
-1. Download the script [here](./final_project.ps1) and save it to a memorable location on your computer.
+  1. Download the script [here](./final_project.ps1) and save it to a memorable location on your computer.
 
-2. Choose an IDE that supports PowerShell (.ps1) files.
+  2. Choose an IDE that supports PowerShell (.ps1) files.
 
-3. Set the Execution-Policy on your system to allow the script to run.
+  3. Set the Execution-Policy on your system to allow the script to run.
 
-  - Use the following command in a terminal on your chose IDE to allow the execution of scripts for the current terminal session:
+    - Use the following command in a terminal on your chose IDE to allow the execution of scripts for the current terminal session:
 
-    ```powershell
-      Set-ExecutionPolicy Unrestricted -Scope Process
-      ```
+      ```powershell
+        Set-ExecutionPolicy Unrestricted -Scope Process
+        ```
 
-    - Select "Yes to All" button in the prompt.
+      - Select "Yes to All" button in the prompt.
 
-4. Open the [final_project.ps1](./final_project.ps1) in the selected IDE. In the warnign prompt, select "Run Once" to run the script.
+  4. Open the [final_project.ps1](./final_project.ps1) in the selected IDE. In the warnign prompt, select "Run Once" to run the script.
 
 ---
 
