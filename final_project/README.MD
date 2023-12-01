@@ -25,6 +25,7 @@ To run this script, you will need to do the following:
 
 1. Download the script [here](./project3.ps1) and save it to a memorable location on your computer
 
+
 2. Choose an IDE that supports PowerShell (.ps1) files
 
 3. Set the Execution-Policy on your system to allow the script to run
