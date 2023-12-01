@@ -26,9 +26,47 @@ do {
 
         $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
 
+        # Check if entered drive letter exists.
+
+        do {
+
+            $testDriveLetter = Test-Path "$driveletter\"
+
+            if (-not ($testDriveLetter)) {
+
+                Start-Sleep -Seconds 1
+
+                Write-Host ""
+
+                Write-Host "Error: Drive $driveletter not found on computer."
+
+                Write-Host ""
+
+                Start-Sleep -Seconds 2
+
+                Write-Output "If you entered the correct drive letter, make sure the letter is capitalized and place a colon at the end."
+
+                Write-Host ""
+
+                Start-Sleep -Seconds 2
+
+                $driveletter = $null
+
+                $driveletter = Read-Host -Prompt "Please enter the hard drive letter you want to look at (make sure to include a colon)"
+
+            }
+
+        }
+
+        while (-not $testDriveLetter)
+
         #Check if user has entered the C: Drive 
 
         if ($driveletter -eq 'C:') {
+
+            Write-Host ""
+
+            Start-Sleep -Seconds 3
 
             Write-Output "Note: You have entered the C: drive. This script is designed for external hard drives."
 
@@ -36,13 +74,13 @@ do {
 
             Write-Host ""
 
-            Write-Output "This script will display the correct storage information for the C: drive, but largest file size and other information may be skewed."
+            Write-Output "This script will display the correct storage information for the C: drive, but the largest file size and other information may not be accurate."
 
             Write-Host ""
 
             Start-Sleep -Seconds 3
 
-            Write-Output "It is best to select an external hard drive for the full functionality and accuracy of the script"
+            Write-Output "It is best to select an external hard drive for the full functionality and accuracy of the script."
 
             Start-Sleep -Seconds 4
 
@@ -52,7 +90,7 @@ do {
 
     # Check to make sure user entered the drive letter in the correct format. Display error message if no colon was inserted.
 
-        if ($driveletter -notlike '*:*') {
+        if ($driveletter -notlike '*:') {
 
             Start-Sleep -Seconds 1
 
@@ -65,7 +103,8 @@ do {
             Start-Sleep -Seconds 2
 
         }
-    } 
+
+    }
 
     while ($driveletter -notlike '*:*')
 
@@ -78,6 +117,8 @@ do {
     Write-Host ""
 
     Write-Host "Here is some information about the ${driveletter} drive:"
+
+    Write-Host ""
 
     Write-Host ""
 
@@ -240,6 +281,8 @@ do {
     # If the capacity or availability of selected drive is more than 1GB, then calculate and display information in GB
 
     else {
+
+        $totalStorageGB =  [math]::Round($disk.Size /1GB)
 
         $availableStorageGB = [math]::Round($disk.FreeSpace / 1GB)
 
