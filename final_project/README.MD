@@ -37,6 +37,7 @@
 
       - Select "Yes to All" button in the prompt.
 
+
   4. Open the [final_project.ps1](./final_project.ps1) in the selected IDE. In the warnign prompt, select "Run Once" to run the script.
 
 ---
