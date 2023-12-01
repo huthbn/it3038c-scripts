@@ -31,7 +31,11 @@ To run this script, you will need to do the following:
 
   - Use the following command in a terminal on your chose IDE to allow the execution of scripts for the current terminal session
 
-    Set-ExecutionPolicy Unrestricted -Scope Process
+  <pre>
+```powershell
+Set-ExecutionPolicy Unrestricted -Scope Process
+```
+</pre>
 
       -Select "Yes to All" button in the prompt
 
